@@ -9,7 +9,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Yesus Vaz | Desenvolvedor Full Stack",
+  title: "Yesus Vaz . dev",
   description: "Portifolio de projetos de Yesus Vaz",
 };
 
@@ -20,12 +20,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR" className='!scroll-smooth' suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={`${inter.className} antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
-          disableTransitionOnChange
+          disableTransitionOnChange={false}
+          storageKey="yesus-portfolio-theme"
         >
           <LanguageProvider>
             {children}

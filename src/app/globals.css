@@ -112,11 +112,78 @@
   --sidebar-ring: oklch(0.551 0.027 264.364);
 }
 
+/* Melhorias adicionais para dark theme */
+.dark {
+  color-scheme: dark;
+}
+
+.dark img {
+  filter: brightness(0.8) contrast(1.2);
+}
+
+.dark code {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: oklch(0.929 0.013 255.508);
+}
+
+.dark pre {
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground min-h-screen;
+  }
+  
+  /* Smooth transitions for theme changes */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Custom scrollbar for dark theme */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-background;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/30 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/50;
+  }
+  
+  /* Selection colors */
+  ::selection {
+    @apply bg-primary/20 text-primary-foreground;
+  }
+  
+  /* Animação do cursor de digitação */
+  @keyframes blink {
+    0%, 50% {
+      opacity: 1;
+    }
+    51%, 100% {
+      opacity: 0;
+    }
+  }
+  
+  /* Animações suaves para elementos interativos */
+  a, button, [role="button"], input, textarea, select, .cursor-pointer {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  a:hover, button:hover, [role="button"]:hover {
+    transform: translateY(-1px);
   }
 }

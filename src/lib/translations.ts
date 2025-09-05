@@ -55,6 +55,34 @@ export const translations = {
       location: "São Paulo, Brazil",
     },
   },
+  es: {
+    nav: {
+      about: "Acerca de",
+      projects: "Proyectos",
+      contact: "Contacto",
+    },
+    hero: {
+      greeting: "Hola, soy",
+      name: "Yesus Vaz",
+      title: "Desarrollador Full Stack",
+      description: "Desarrollador Full Stack apasionado por crear experiencias digitales increíbles con React, Next.js y TypeScript.",
+      cta1: "Ver Proyectos",
+      cta2: "Contactar",
+    },
+    about: {
+      title: "Acerca de Mí",
+      description1: "Soy un desarrollador full stack con experiencia creando aplicaciones web modernas y escalables. Especializado en React, Next.js, TypeScript y Node.js.",
+      description2: "Apasionado por la tecnología y siempre buscando aprender nuevas herramientas para entregar soluciones de alta calidad.",
+    },
+    projects: {
+      title: "Proyectos",
+    },
+    contact: {
+      title: "Contáctame",
+      description: "Siempre estoy abierto a nuevas oportunidades y proyectos interesantes. ¡Hablemos!",
+      location: "São Paulo, Brasil",
+    },
+  },
 };
 
 export type Language = keyof typeof translations;

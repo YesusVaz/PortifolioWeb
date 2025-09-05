@@ -12,13 +12,14 @@ import {
 
 interface LanguageToggleProps {
   currentLanguage: string;
-  onLanguageChange: (language: "pt" | "en") => void;
+  onLanguageChange: (language: "pt" | "en" | "es") => void;
 }
 
 export function LanguageToggle({ currentLanguage, onLanguageChange }: LanguageToggleProps) {
   const languages = [
     { code: "pt", name: "Português", flag: "🇧🇷" },
     { code: "en", name: "English", flag: "🇺🇸" },
+    { code: "es", name: "Español", flag: "🇪🇸" },
   ];
 
   const currentLang = languages.find(lang => lang.code === currentLanguage) || languages[0];
@@ -35,7 +36,7 @@ export function LanguageToggle({ currentLanguage, onLanguageChange }: LanguageTo
         {languages.map((language) => (
           <DropdownMenuItem
             key={language.code}
-            onClick={() => onLanguageChange(language.code as "pt" | "en")}
+            onClick={() => onLanguageChange(language.code as "pt" | "en" | "es")}
             className={currentLanguage === language.code ? "bg-accent" : ""}
           >
             <span className="mr-2">{language.flag}</span>
