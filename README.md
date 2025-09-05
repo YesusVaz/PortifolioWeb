@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portifólio — Yesus Vaz
 
-## Getting Started
+Um portfólio pessoal construído com Next.js, TypeScript e Tailwind CSS. Projeto focado em performance, acessibilidade e experiência visual.
 
-First, run the development server:
+## Tecnologias
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
+- Next.js (App Router)
+- React + TypeScript
+- Tailwind CSS
+- shadcn/ui (componentes)
+- next-themes (tema claro/escuro)
+- pnpm (gerenciador de pacotes)
+
+## Recursos principais
+
+- Hero com animação de digitação
+- Header profissional e responsivo
+- Carrossel de projetos (arrastar e navegar)
+- Seção de contato com formulário (mailto) e links diretos
+- Suporte a idiomas: Português (pt), English (en) e Español (es)
+- Tema claro/escuro persistente via localStorage
+
+## Estrutura (resumo)
+
+- `src/app` — layout, providers e rotas
+- `src/components` — componentes reutilizáveis (hero, header, projects, contact...)
+- `src/components/ui` — componentes gerados pelo shadcn/ui
+- `src/contexts` — providers (idioma, tema)
+- `src/lib` — traduções, constantes e utilitários
+- `public/` — assets públicos
+
+## Como rodar (Windows - PowerShell)
+
+```powershell
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+O site normalmente abre em `http://localhost:3000` (ou outra porta livre).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Como editar conteúdo rápido
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Traduções: `src/lib/translations.ts`
+- Projetos exibidos: `src/components/projects.tsx`
+- Hero / animações: `src/components/hero.tsx`
+- Tema e variáveis: `src/app/globals.css`
 
-## Learn More
+## Personalização e shadcn
 
-To learn more about Next.js, take a look at the following resources:
+Os componentes em `src/components/ui` vêm do shadcn. Para gerar novos componentes use:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```powershell
+pnpm dlx shadcn@latest add <component-name>
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Contato
 
-## Deploy on Vercel
+- Email: `#`
+- GitHub: https://github.com/yesusvaz
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
