@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { LanguageProvider } from "@/contexts/language-context";
+import { CustomCursor } from "@/components/custom-cursor";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -29,6 +30,7 @@ export default function RootLayout({
           storageKey="yesus-portfolio-theme"
         >
           <LanguageProvider>
+            <CustomCursor />
             {children}
           </LanguageProvider>
         </ThemeProvider>

@@ -3,10 +3,19 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { useLanguage } from "@/contexts/language-context";
+
+
 import { useState, useEffect } from "react";
 
 export function Hero() {
   const { t } = useLanguage();
+  const [showSplash, setShowSplash] = useState(true);
+  // Splash fullscreen ao abrir
+  useEffect(() => {
+    const timer = setTimeout(() => setShowSplash(false), 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
@@ -67,56 +76,71 @@ export function Hero() {
   }, []);
 
   return (
-    <section className="py-20 text-center relative overflow-hidden">
-      {/* Background decorativo */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 dark:bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/5 dark:bg-purple-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }}></div>
-      </div>
-      
-      <div className="container mx-auto px-4 relative">
-        <h1 className="text-3xl md:text-6xl font-bold mb-6 min-h-[120px] md:min-h-[160px] flex items-center justify-center">
-          <span className={`font-mono transition-all duration-500 relative ${
-            textVariations[currentTextIndex].includes('(') || 
-            textVariations[currentTextIndex].includes('{') || 
-            textVariations[currentTextIndex].includes('<') || 
-            textVariations[currentTextIndex].includes('=')
-              ? 'bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent px-4 py-2 rounded-lg bg-slate-900/10 dark:bg-slate-100/10'
-              : 'bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent'
-          }`}>
-            {displayText}
-            <span 
-              className={`inline-block w-1 h-8 md:h-12 ml-1 transition-all duration-100 ${
-                showCursor ? 'opacity-100' : 'opacity-0'
-              } ${
-                textVariations[currentTextIndex].includes('(') || 
-                textVariations[currentTextIndex].includes('{') || 
-                textVariations[currentTextIndex].includes('<') || 
-                textVariations[currentTextIndex].includes('=')
-                  ? 'bg-green-400'
-                  : 'bg-primary'
-              }`}
-              style={{ animation: 'blink 1s infinite' }}
-            />
-          </span>
+    <>
+      {/* Splash fullscreen animado */}
+      <div
+        className={`fixed inset-0 z-50 flex items-center justify-center bg-background transition-all duration-700 ${
+          showSplash ? 'opacity-100 pointer-events-auto visible' : 'opacity-0 pointer-events-none invisible'
+        }`}
+        style={{
+          transitionProperty: 'opacity, visibility',
+        }}
+      >
+        <h1 className="text-4xl md:text-7xl font-extrabold font-mono bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent drop-shadow-xl animate-pulse">
+          Yesus Vaz
         </h1>
-        <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
-          {t.hero.description}
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button size="lg" asChild className="bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 text-white shadow-lg hover:shadow-xl transition-all duration-300 group">
-            <a href="#projetos">
-              {t.hero.cta1}
-              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </a>
-          </Button>
-          <Button variant="outline" size="lg" asChild className="border-2 hover:bg-muted/50 transition-all duration-300">
-            <a href="#contato">
-              {t.hero.cta2}
-            </a>
-          </Button>
-        </div>
       </div>
-    </section>
+
+      <section className={`py-20 text-center relative overflow-hidden transition-all duration-700 ${showSplash ? 'blur-sm scale-105' : 'blur-0 scale-100'}`}>
+        {/* Background decorativo */}
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 dark:bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/5 dark:bg-purple-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }}></div>
+        </div>
+        <div className="container mx-auto px-4 relative">
+          <h1 className="text-3xl md:text-6xl font-bold mb-6 min-h-[120px] md:min-h-[160px] flex items-center justify-center">
+            <span className={`font-mono transition-all duration-500 relative ${
+              textVariations[currentTextIndex].includes('(') || 
+              textVariations[currentTextIndex].includes('{') || 
+              textVariations[currentTextIndex].includes('<') || 
+              textVariations[currentTextIndex].includes('=')
+                ? 'bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent px-4 py-2 rounded-lg bg-slate-900/10 dark:bg-slate-100/10'
+                : 'bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent'
+            }`}>
+              {displayText}
+              <span 
+                className={`inline-block w-1 h-8 md:h-12 ml-1 transition-all duration-100 ${
+                  showCursor ? 'opacity-100' : 'opacity-0'
+                } ${
+                  textVariations[currentTextIndex].includes('(') || 
+                  textVariations[currentTextIndex].includes('{') || 
+                  textVariations[currentTextIndex].includes('<') || 
+                  textVariations[currentTextIndex].includes('=')
+                    ? 'bg-green-400'
+                    : 'bg-primary'
+                }`}
+                style={{ animation: 'blink 1s infinite' }}
+              />
+            </span>
+          </h1>
+          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
+            {t.hero.description}
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button size="lg" asChild className="bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 text-white shadow-lg hover:shadow-xl transition-all duration-300 group">
+              <a href="#projetos">
+                {t.hero.cta1}
+                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </a>
+            </Button>
+            <Button variant="outline" size="lg" asChild className="border-2 hover:bg-muted/50 transition-all duration-300">
+              <a href="#contato">
+                {t.hero.cta2}
+              </a>
+            </Button>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
