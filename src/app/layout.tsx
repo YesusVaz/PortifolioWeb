@@ -1,17 +1,16 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import { LanguageProvider } from "@/contexts/language-context";
-import { CustomCursor } from "@/components/custom-cursor";
 
-const inter = Inter({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
+  variable: "--font-space-grotesk",
 });
 
 export const metadata: Metadata = {
-  title: "Yesus Vaz . dev",
-  description: "Portifolio de projetos de Yesus Vaz",
+  title: "Yesus Vaz - Full-Stack Developer",
+  description: "Yesus Vaz: Full-Stack Developer Crafting Interactive Web Experiences.",
 };
 
 export default function RootLayout({
@@ -20,19 +19,28 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="pt-BR" className='!scroll-smooth' suppressHydrationWarning>
-      <body className={`${inter.className} antialiased`}>
+    <html lang="en" className="light !scroll-smooth" suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=optional"
+        />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=optional"
+        />
+      </head>
+      <body className={`${spaceGrotesk.className} ${spaceGrotesk.variable} antialiased`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          defaultTheme="light"
+          enableSystem={false}
           disableTransitionOnChange={false}
           storageKey="yesus-portfolio-theme"
         >
-          <LanguageProvider>
-            <CustomCursor />
-            {children}
-          </LanguageProvider>
+          {children}
         </ThemeProvider>
       </body>
     </html>
