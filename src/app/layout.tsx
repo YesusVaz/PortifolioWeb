@@ -9,8 +9,19 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
   title: "Yesus Vaz - Full-Stack Developer",
   description: "Yesus Vaz: Full-Stack Developer Crafting Interactive Web Experiences.",
+  openGraph: {
+    title: "Yesus Vaz - Full-Stack Developer",
+    description: "Yesus Vaz: Full-Stack Developer Crafting Interactive Web Experiences.",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Yesus Vaz - Full-Stack Developer",
+    description: "Yesus Vaz: Full-Stack Developer Crafting Interactive Web Experiences.",
+  },
 };
 
 export default function RootLayout({
@@ -20,18 +31,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="light !scroll-smooth" suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=optional"
-        />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=optional"
-        />
-      </head>
       <body className={`${spaceGrotesk.className} ${spaceGrotesk.variable} antialiased`}>
         <ThemeProvider
           attribute="class"

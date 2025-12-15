@@ -1,8 +1,12 @@
 "use client";
 
 import { LandingButton } from "@/components/landing/landing-button";
+import { sendEmail } from "@/actions/send-email";
+import { useRef } from "react";
 
 export function ContactSection() {
+  const formRef = useRef<HTMLFormElement>(null);
+
   return (
     <section id="contact" className="px-4 py-10">
       <div className="rounded-[2rem] border border-gray-200 dark:border-gray-700/50 bg-white dark:bg-background-dark p-8 text-center flex flex-col items-center gap-6">
@@ -13,7 +17,7 @@ export function ContactSection() {
           Got a project, a challenge, or just want to connect? Send a mission brief and let&apos;s team up!
         </p>
 
-        <form className="w-full max-w-md flex flex-col gap-4" onSubmit={(e) => e.preventDefault()}>
+        <form ref={formRef} className="w-full max-w-md flex flex-col gap-4" action={sendEmail}>
           <input
             className="w-full rounded-[1rem] border-gray-300 dark:border-gray-600 bg-background-light dark:bg-gray-800 focus:ring-primary focus:border-primary dark:text-white"
             placeholder="Your Name"
@@ -35,9 +39,9 @@ export function ContactSection() {
             name="message"
           />
 
-          <LandingButton className="self-center min-w-[84px] max-w-[480px]" >
-            SEND MISSION BRIEF
-          </LandingButton>
+          <div onClick={() => formRef.current?.requestSubmit()} className="self-center">
+            <LandingButton className="min-w-[84px] max-w-[480px]">SEND MISSION BRIEF</LandingButton>
+          </div>
         </form>
       </div>
     </section>

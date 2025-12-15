@@ -1,38 +1,8 @@
 "use client";
 
 import Image from "next/image";
-
-type Project = {
-  title: string;
-  description: string;
-  imageUrl: string;
-  imageAlt: string;
-  liveHref: string;
-  repoHref: string;
-};
-
-const PROJECTS: Project[] = [
-  {
-    title: "E-commerce Platform",
-    description:
-      "A full-stack e-commerce site built with React, Node.js, and PostgreSQL, featuring secure payments.",
-    imageUrl:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuARLWyEWINfrgQLQT9wPAMjRe7acL8mI3pQ3qGqIPvhyME3Bh1taH-KalebhndVdkZoj21PmfU0IsMWVRsjDhFwPuBvqi-V5Uwwx0YqLaLqvKDiFbD0qUVe4m84NKmc_XffGuIdXUtPVhMcJyxVGBme23OoNmqCmb7IpRMKu2l3IDfd70DY5rRllflOR2e6nNoBfKwzDHBuOSHp2WlOPBFzCakoXcLkJz8gQjMKnblQ8PpXoA3nw9iswRvKkLWOkDxWlg8vbuIOCaE",
-    imageAlt: "Code on a dark computer screen",
-    liveHref: "#",
-    repoHref: "#",
-  },
-  {
-    title: "Data Dashboard",
-    description:
-      "An interactive data visualization dashboard using D3.js and a Python/Flask backend.",
-    imageUrl:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuCxqmURjh1inYmPWVEWoag9VLOlwrLa_pf7x38YCUUTgrUL7Lhp0LuvV3UA-g1gOdDo6e59JZRCmiws2NIz0XX2pliSNCim89-oFwW2aKNOadKAbJWgXAEAa58MV82uuQhmcCN_MMm8NFFPzJHfE197Qlk-1-L0g5XqDvVhoQQ1-l3oC4CXwbZzsfhgoVhEqHZEMnkKJxL6vcAD8Y4uSvYKwvJe4-nXwowGMahPFeh26GMFt1icZ3Numxn1zaXJUZhLUFpFdif4XoQ",
-    imageAlt: "Laptop displaying HTML code snippets",
-    liveHref: "#",
-    repoHref: "#",
-  },
-];
+import { motion } from "framer-motion";
+import { PROJECTS } from "@/data/projects";
 
 export function ProjectsSection() {
   return (
@@ -42,9 +12,13 @@ export function ProjectsSection() {
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-4">
-        {PROJECTS.map((project) => (
-          <div
+        {PROJECTS.map((project, index) => (
+          <motion.div
             key={project.title}
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: index * 0.08 }}
+            viewport={{ once: true, margin: "-20% 0px" }}
             className="flex flex-col gap-4 rounded-[2rem] border border-gray-200 dark:border-gray-700/50 bg-white dark:bg-background-dark p-4 group"
           >
             <div className="relative overflow-hidden rounded-[1rem]">
@@ -72,7 +46,7 @@ export function ProjectsSection() {
                 Repository
               </a>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </section>
