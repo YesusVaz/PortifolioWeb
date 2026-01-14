@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { LanguageProvider } from "@/contexts/language-context";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -39,7 +40,9 @@ export default function RootLayout({
           disableTransitionOnChange={false}
           storageKey="yesus-portfolio-theme"
         >
-          {children}
+          <LanguageProvider>
+            {children}
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

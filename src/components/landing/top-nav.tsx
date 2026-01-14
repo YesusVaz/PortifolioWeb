@@ -1,8 +1,13 @@
 "use client";
 
 import { LandingButton } from "@/components/landing/landing-button";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { LanguageToggle } from "@/components/ui/language-toggle";
+import { useLanguage } from "@/contexts/language-context";
 
 export function TopNav() {
+  const { t } = useLanguage();
+
   return (
     <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-gray-200 dark:border-b-gray-700/50 px-4 sm:px-6 lg:px-10 py-3">
       <div className="flex items-center gap-4 text-foreground dark:text-primary">
@@ -29,22 +34,26 @@ export function TopNav() {
       <div className="hidden md:flex flex-1 justify-end gap-8">
         <nav className="flex items-center gap-9">
           <a className="text-foreground dark:text-background-light text-sm font-medium leading-normal" href="#start">
-            Start
+            {t("start")}
           </a>
           <a className="text-foreground dark:text-background-light text-sm font-medium leading-normal" href="#skills">
-            Skills
+            {t("skills")}
           </a>
           <a className="text-foreground dark:text-background-light text-sm font-medium leading-normal" href="#projects">
-            Projects
+            {t("projects")}
           </a>
           <a className="text-foreground dark:text-background-light text-sm font-medium leading-normal" href="#contact">
-            Contact
+            {t("contact")}
           </a>
         </nav>
 
-        <LandingButton href="#contact" size="sm" className="min-w-[84px] max-w-[480px]" >
-          Get in Touch
-        </LandingButton>
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <LanguageToggle />
+          <LandingButton href="#contact" size="sm" className="min-w-[84px] max-w-[480px]">
+            {t("getInTouch")}
+          </LandingButton>
+        </div>
       </div>
     </header>
   );
