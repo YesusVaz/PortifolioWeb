@@ -1,48 +1,83 @@
 "use client";
 
-import { LandingButton } from "@/components/landing/landing-button";
 import { sendEmail } from "@/actions/send-email";
 import { useRef } from "react";
+import { useLanguage } from "@/contexts/language-context";
+import { motion } from "framer-motion";
+import { Send } from "lucide-react";
 
 export function ContactSection() {
   const formRef = useRef<HTMLFormElement>(null);
+  const { t } = useLanguage();
 
   return (
-    <section id="contact" className="px-4 py-10">
-      <div className="rounded-[2rem] border border-gray-200 dark:border-gray-700/50 bg-white dark:bg-background-dark p-8 text-center flex flex-col items-center gap-6">
-        <h2 className="text-foreground dark:text-white text-3xl font-bold leading-tight tracking-[-0.015em]">
-          START A NEW GAME?
-        </h2>
-        <p className="max-w-md text-gray-600 dark:text-gray-400">
-          Got a project, a challenge, or just want to connect? Send a mission brief and let&apos;s team up!
-        </p>
+    <section id="contact" className="py-10 sm:py-16">
+      <div className="px-2 sm:px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+          className="rounded-2xl sm:rounded-3xl border border-gray-200 dark:border-gray-700/50 bg-gradient-to-br from-white to-gray-50 dark:from-background-dark dark:to-gray-900/50 p-6 sm:p-10 md:p-12"
+        >
+          <div className="max-w-2xl mx-auto">
+            {/* Header */}
+            <div className="text-center mb-8 sm:mb-10">
+              <h2 className="text-foreground dark:text-white text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
+                {t("contactTitle")}
+              </h2>
+              <p className="text-gray-500 dark:text-gray-400 mt-3 text-sm sm:text-base max-w-md mx-auto">
+                {t("contactDescription")}
+              </p>
+            </div>
 
-        <form ref={formRef} className="w-full max-w-md flex flex-col gap-4" action={sendEmail}>
-          <input
-            className="w-full rounded-[1rem] border-gray-300 dark:border-gray-600 bg-background-light dark:bg-gray-800 focus:ring-primary focus:border-primary dark:text-white"
-            placeholder="Your Name"
-            type="text"
-            name="name"
-            autoComplete="name"
-          />
-          <input
-            className="w-full rounded-[1rem] border-gray-300 dark:border-gray-600 bg-background-light dark:bg-gray-800 focus:ring-primary focus:border-primary dark:text-white"
-            placeholder="Your Email"
-            type="email"
-            name="email"
-            autoComplete="email"
-          />
-          <textarea
-            className="w-full rounded-[1rem] border-gray-300 dark:border-gray-600 bg-background-light dark:bg-gray-800 focus:ring-primary focus:border-primary dark:text-white"
-            placeholder="Your Message"
-            rows={4}
-            name="message"
-          />
+            {/* Form */}
+            <form ref={formRef} className="space-y-4 sm:space-y-5" action={sendEmail}>
+              <div className="grid sm:grid-cols-2 gap-4 sm:gap-5">
+                <div>
+                  <input
+                    className="w-full h-11 sm:h-12 px-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/50 text-foreground dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all text-sm sm:text-base"
+                    placeholder={t("yourName")}
+                    type="text"
+                    name="name"
+                    autoComplete="name"
+                    required
+                  />
+                </div>
+                <div>
+                  <input
+                    className="w-full h-11 sm:h-12 px-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/50 text-foreground dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all text-sm sm:text-base"
+                    placeholder={t("yourEmail")}
+                    type="email"
+                    name="email"
+                    autoComplete="email"
+                    required
+                  />
+                </div>
+              </div>
 
-          <div onClick={() => formRef.current?.requestSubmit()} className="self-center">
-            <LandingButton className="min-w-[84px] max-w-[480px]">SEND MISSION BRIEF</LandingButton>
+              <div>
+                <textarea
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/50 text-foreground dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all resize-none text-sm sm:text-base"
+                  placeholder={t("yourMessage")}
+                  rows={5}
+                  name="message"
+                  required
+                />
+              </div>
+
+              <div className="pt-2 flex justify-center sm:justify-start">
+                <button
+                  type="submit"
+                  className="inline-flex items-center justify-center h-10 sm:h-12 px-6 sm:px-8 rounded-full bg-primary text-primary-foreground font-semibold text-sm sm:text-base hover:bg-primary/90 transition-colors"
+                >
+                  {t("sendMessage")}
+                  <Send className="ml-2 size-4 flex-shrink-0" />
+                </button>
+              </div>
+            </form>
           </div>
-        </form>
+        </motion.div>
       </div>
     </section>
   );

@@ -291,3 +291,8 @@
 .animate-spotlight {
   animation: spotlight 2s ease .75s 1 forwards;
 }
+
+/* Safe area for mobile devices (iPhone notch, etc) */
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}

@@ -20,6 +20,12 @@ export function LanguageToggle() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const languages = [
+    { code: "en" as const, flag: "🇺🇸", label: "English" },
+    { code: "es" as const, flag: "🇪🇸", label: "Español" },
+    { code: "pt" as const, flag: "🇧🇷", label: "Português" },
+  ];
+
   return (
     <div className="relative" ref={dropdownRef}>
       <button
@@ -31,40 +37,23 @@ export function LanguageToggle() {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-36 rounded-lg bg-white dark:bg-gray-900 shadow-lg border border-gray-200 dark:border-gray-700 py-1 z-50">
-          <button
-            onClick={() => {
-              setLanguage("en");
-              setIsOpen(false);
-            }}
-            className={`w-full px-4 py-2 text-left text-sm hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors ${
-              language === "en" ? "font-semibold text-blue-600 dark:text-blue-400" : "text-gray-700 dark:text-gray-300"
-            }`}
-          >
-            🇺🇸 English
-          </button>
-          <button
-            onClick={() => {
-              setLanguage("es");
-              setIsOpen(false);
-            }}
-            className={`w-full px-4 py-2 text-left text-sm hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors ${
-              language === "es" ? "font-semibold text-blue-600 dark:text-blue-400" : "text-gray-700 dark:text-gray-300"
-            }`}
-          >
-            🇪🇸 Español
-          </button>
-          <button
-            onClick={() => {
-              setLanguage("pt");
-              setIsOpen(false);
-            }}
-            className={`w-full px-4 py-2 text-left text-sm hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors ${
-              language === "pt" ? "font-semibold text-blue-600 dark:text-blue-400" : "text-gray-700 dark:text-gray-300"
-            }`}
-          >
-            🇧🇷 Português
-          </button>
+        <div className="absolute right-0 mt-2 flex rounded-lg bg-white dark:bg-gray-900 shadow-lg border border-gray-200 dark:border-gray-700 p-1 z-50 gap-1">
+          {languages.map((lang) => (
+            <button
+              key={lang.code}
+              onClick={() => {
+                setLanguage(lang.code);
+                setIsOpen(false);
+              }}
+              className={`px-3 py-2 text-sm rounded-md transition-colors whitespace-nowrap ${
+                language === lang.code
+                  ? "bg-gray-800 dark:bg-gray-700 text-white font-semibold"
+                  : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+              }`}
+            >
+              {lang.flag} {lang.label}
+            </button>
+          ))}
         </div>
       )}
     </div>
