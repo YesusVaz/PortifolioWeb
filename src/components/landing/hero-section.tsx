@@ -2,16 +2,14 @@
 
 import { LandingButton } from "@/components/landing/landing-button";
 import { useLanguage } from "@/contexts/language-context";
+import { useScrollToSection } from "@/hooks/use-scroll-to-section";
 import { motion } from "framer-motion";
-import { ArrowRight, Github, Linkedin, Mail, Download } from "lucide-react";
+import { ArrowRight, Mail, Download } from "lucide-react";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 export function HeroSection() {
   const { t } = useLanguage();
-
-  const scrollToProjects = (e: React.MouseEvent) => {
-    e.preventDefault();
-    document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
-  };
+  const scrollTo = useScrollToSection();
 
   return (
     <section id="start" className="min-h-[70vh] flex items-center">
@@ -22,40 +20,33 @@ export function HeroSection() {
           transition={{ duration: 0.5 }}
           className="flex flex-col gap-4 sm:gap-6"
         >
-          {/* Greeting */}
           <p className="text-primary font-medium text-sm sm:text-base">
             {t("heroGreeting")}
           </p>
 
-          {/* Name */}
           <h1 className="text-foreground dark:text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.1] tracking-tight">
             {t("heroName")}
           </h1>
 
-          {/* Role */}
           <h2 className="text-gray-600 dark:text-gray-400 text-xl sm:text-2xl md:text-3xl font-semibold">
             {t("heroRole")}
           </h2>
 
-          {/* Description */}
           <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-base md:text-lg max-w-xl leading-relaxed">
             {t("heroDescription")}
           </p>
         </motion.div>
 
-        {/* CTAs */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
           className="flex flex-wrap gap-3 sm:gap-4"
         >
-          <div onClick={scrollToProjects}>
-            <LandingButton className="text-sm sm:text-base">
-              {t("viewProjects")}
-              <ArrowRight className="ml-2 size-4" />
-            </LandingButton>
-          </div>
+          <LandingButton className="text-sm sm:text-base" onClick={() => scrollTo("projects")}>
+            {t("viewProjects")}
+            <ArrowRight className="ml-2 size-4" />
+          </LandingButton>
           <a
             href="/cv-yesus-vaz.pdf"
             download
@@ -66,7 +57,6 @@ export function HeroSection() {
           </a>
         </motion.div>
 
-        {/* Social Links */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -80,7 +70,7 @@ export function HeroSection() {
             className="size-10 flex items-center justify-center rounded-full border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:text-primary hover:border-primary dark:hover:text-primary dark:hover:border-primary transition-colors"
             aria-label="GitHub"
           >
-            <Github className="size-5" />
+            <FaGithub className="size-5" />
           </a>
           <a
             href="https://www.linkedin.com/in/yesus-vaz-0514a42a6/"
@@ -89,10 +79,10 @@ export function HeroSection() {
             className="size-10 flex items-center justify-center rounded-full border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:text-primary hover:border-primary dark:hover:text-primary dark:hover:border-primary transition-colors"
             aria-label="LinkedIn"
           >
-            <Linkedin className="size-5" />
+            <FaLinkedin className="size-5" />
           </a>
           <a
-            href="mailto:contact@yesusvaz.com"
+            href="mailto:yesuslucas@gmail.com"
             className="size-10 flex items-center justify-center rounded-full border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:text-primary hover:border-primary dark:hover:text-primary dark:hover:border-primary transition-colors"
             aria-label="Email"
           >

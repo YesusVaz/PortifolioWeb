@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
-type Language = "en" | "es" | "pt";
+export type Language = "en" | "es" | "pt";
 
 interface LanguageContextType {
   language: Language;
@@ -49,6 +49,9 @@ const translations: Record<Language, Record<string, string>> = {
     yourEmail: "Your Email",
     yourMessage: "Tell me about your project...",
     sendMessage: "Send Message",
+    formSending: "Sending...",
+    formSuccess: "Message sent! I'll get back to you soon.",
+    formError: "Failed to send. Please try again.",
   },
   es: {
     // Navigation
@@ -88,6 +91,9 @@ const translations: Record<Language, Record<string, string>> = {
     yourEmail: "Tu Email",
     yourMessage: "Cuéntame sobre tu proyecto...",
     sendMessage: "Enviar Mensaje",
+    formSending: "Enviando...",
+    formSuccess: "¡Mensaje enviado! Te responderé pronto.",
+    formError: "Error al enviar. Por favor, inténtalo de nuevo.",
   },
   pt: {
     // Navigation
@@ -127,6 +133,9 @@ const translations: Record<Language, Record<string, string>> = {
     yourEmail: "Seu Email",
     yourMessage: "Conte-me sobre seu projeto...",
     sendMessage: "Enviar Mensagem",
+    formSending: "Enviando...",
+    formSuccess: "Mensagem enviada! Responderei em breve.",
+    formError: "Falha ao enviar. Por favor, tente novamente.",
   },
 };
 
@@ -134,10 +143,8 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguageState] = useState<Language>("en");
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
     const saved = localStorage.getItem("language") as Language | null;
     if (saved && (saved === "en" || saved === "es" || saved === "pt")) {
       setLanguageState(saved);
@@ -146,9 +153,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
-    if (mounted) {
-      localStorage.setItem("language", lang);
-    }
+    localStorage.setItem("language", lang);
   };
 
   const t = (key: string): string => {

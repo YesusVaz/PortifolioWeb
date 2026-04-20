@@ -4,14 +4,11 @@ import { LandingButton } from "@/components/landing/landing-button";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { LanguageToggle } from "@/components/ui/language-toggle";
 import { useLanguage } from "@/contexts/language-context";
+import { useScrollToSection } from "@/hooks/use-scroll-to-section";
 
 export function TopNav() {
   const { t } = useLanguage();
-
-  const scrollToSection = (sectionId: string) => (e: React.MouseEvent) => {
-    e.preventDefault();
-    document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
-  };
+  const scrollTo = useScrollToSection();
 
   return (
     <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-gray-200 dark:border-b-gray-700/50 px-2 sm:px-4 lg:px-10 py-3">
@@ -46,46 +43,23 @@ export function TopNav() {
       {/* Desktop: navegação completa */}
       <div className="hidden md:flex flex-1 justify-end gap-8">
         <nav className="flex items-center gap-6 lg:gap-9">
-          <button
-            onClick={scrollToSection("start")}
-            className="text-foreground dark:text-background-light text-sm font-medium leading-normal hover:text-primary transition-colors"
-          >
-            {t("start")}
-          </button>
-          <button
-            onClick={scrollToSection("skills")}
-            className="text-foreground dark:text-background-light text-sm font-medium leading-normal hover:text-primary transition-colors"
-          >
-            {t("skills")}
-          </button>
-          <button
-            onClick={scrollToSection("experience")}
-            className="text-foreground dark:text-background-light text-sm font-medium leading-normal hover:text-primary transition-colors"
-          >
-            {t("experience")}
-          </button>
-          <button
-            onClick={scrollToSection("projects")}
-            className="text-foreground dark:text-background-light text-sm font-medium leading-normal hover:text-primary transition-colors"
-          >
-            {t("projects")}
-          </button>
-          <button
-            onClick={scrollToSection("contact")}
-            className="text-foreground dark:text-background-light text-sm font-medium leading-normal hover:text-primary transition-colors"
-          >
-            {t("contact")}
-          </button>
+          {(["start", "skills", "experience", "projects", "contact"] as const).map((id) => (
+            <button
+              key={id}
+              onClick={() => scrollTo(id)}
+              className="text-foreground dark:text-background-light text-sm font-medium leading-normal hover:text-primary transition-colors"
+            >
+              {t(id)}
+            </button>
+          ))}
         </nav>
 
         <div className="flex items-center gap-2">
           <ThemeToggle />
           <LanguageToggle />
-          <div onClick={scrollToSection("contact")}>
-            <LandingButton size="sm" className="min-w-[84px] max-w-[480px]">
-              {t("getInTouch")}
-            </LandingButton>
-          </div>
+          <LandingButton size="sm" className="min-w-[84px] max-w-[480px]" onClick={() => scrollTo("contact")}>
+            {t("getInTouch")}
+          </LandingButton>
         </div>
       </div>
     </header>

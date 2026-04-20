@@ -139,13 +139,16 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
   }
   body {
     @apply bg-background-light dark:bg-background-dark text-foreground min-h-screen;
   }
-  
-  /* Smooth transitions for theme changes */
+
+  /* Theme-switch transitions scoped to semantic/interactive elements only */
+  :is(body, header, footer, main, section, nav, aside, article, div, span, p, a, button, input, textarea, h1, h2, h3, h4, h5, h6, label) {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+
   html {
     scroll-behavior: smooth;
   }

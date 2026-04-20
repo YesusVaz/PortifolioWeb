@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { PROJECTS } from "@/data/projects";
 import { useLanguage } from "@/contexts/language-context";
+import { getLocalized } from "@/utils/localize";
 import useEmblaCarousel from "embla-carousel-react";
 import { useCallback, useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, ExternalLink, Github } from "lucide-react";
@@ -40,31 +41,8 @@ export function ProjectsSection() {
     };
   }, [emblaApi, onSelect]);
 
-  const getTitle = (project: (typeof PROJECTS)[0]) => {
-    switch (language) {
-      case "es":
-        return project.titleEs;
-      case "pt":
-        return project.titlePt;
-      default:
-        return project.titleEn;
-    }
-  };
-
-  const getDescription = (project: (typeof PROJECTS)[0]) => {
-    switch (language) {
-      case "es":
-        return project.descriptionEs;
-      case "pt":
-        return project.descriptionPt;
-      default:
-        return project.descriptionEn;
-    }
-  };
-
   return (
     <section id="projects" className="py-10 sm:py-16 overflow-hidden">
-      {/* Header */}
       <div className="flex items-end justify-between px-2 sm:px-4 mb-6 sm:mb-8">
         <div>
           <h2 className="text-foreground dark:text-white text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
@@ -95,12 +73,11 @@ export function ProjectsSection() {
         </div>
       </div>
 
-      {/* Carousel */}
       <div className="overflow-hidden px-2 sm:px-4" ref={emblaRef}>
         <div className="flex gap-4 sm:gap-6">
           {PROJECTS.map((project, index) => (
             <motion.div
-              key={project.title}
+              key={`${project.titleEn}-${index}`}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: index * 0.1 }}
@@ -108,7 +85,6 @@ export function ProjectsSection() {
               className="flex-[0_0_100%] sm:flex-[0_0_calc(50%-12px)] lg:flex-[0_0_calc(50%-12px)] min-w-0"
             >
               <div className="flex flex-col rounded-2xl border border-gray-200 dark:border-gray-700/50 bg-white dark:bg-background-dark overflow-hidden group h-full">
-                {/* Image */}
                 <div className="relative overflow-hidden">
                   <div className="relative h-44 sm:h-52 w-full">
                     <Image
@@ -121,16 +97,14 @@ export function ProjectsSection() {
                   </div>
                 </div>
 
-                {/* Content */}
                 <div className="flex flex-col gap-3 p-4 sm:p-5 flex-1">
                   <h3 className="text-foreground dark:text-white text-lg sm:text-xl font-semibold">
-                    {getTitle(project)}
+                    {getLocalized(language, project.titleEn, project.titleEs, project.titlePt)}
                   </h3>
                   <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed line-clamp-2 flex-1">
-                    {getDescription(project)}
+                    {getLocalized(language, project.descriptionEn, project.descriptionEs, project.descriptionPt)}
                   </p>
 
-                  {/* Tags */}
                   <div className="flex flex-wrap gap-2 pt-1">
                     {project.tags.map((tag) => (
                       <span
@@ -142,7 +116,6 @@ export function ProjectsSection() {
                     ))}
                   </div>
 
-                  {/* Links */}
                   <div className="flex gap-4 pt-2">
                     {project.liveHref !== "#" && (
                       <a
@@ -172,7 +145,6 @@ export function ProjectsSection() {
         </div>
       </div>
 
-      {/* Dots */}
       <div className="flex justify-center gap-2 pt-6">
         {PROJECTS.map((_, index) => (
           <button

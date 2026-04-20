@@ -7,9 +7,12 @@ type LandingButtonProps = {
   href?: string;
   className?: string;
   size?: "sm" | "md";
+  type?: "button" | "submit";
+  onClick?: () => void;
+  disabled?: boolean;
 };
 
-export function LandingButton({ children, href, className = "", size = "md" }: LandingButtonProps) {
+export function LandingButton({ children, href, className = "", size = "md", type = "button", onClick, disabled }: LandingButtonProps) {
   const root =
     "group relative inline-block rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background-light dark:focus-visible:ring-offset-background-dark";
   const faceBase =
@@ -37,7 +40,7 @@ export function LandingButton({ children, href, className = "", size = "md" }: L
   }
 
   return (
-    <button type="button" className={`${root} ${className}`}>
+    <button type={type} onClick={onClick} disabled={disabled} className={`${root} ${className} ${disabled ? "opacity-60 cursor-not-allowed" : ""}`}>
       <span aria-hidden="true" className={shadow} />
       <span className={face}>
         <span className="truncate">{children}</span>

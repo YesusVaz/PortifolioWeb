@@ -3,25 +3,14 @@
 import { motion } from "framer-motion";
 import { SKILL_CATEGORIES } from "@/data/skills";
 import { useLanguage } from "@/contexts/language-context";
+import { getLocalized } from "@/utils/localize";
 
 export function SkillsSection() {
   const { t, language } = useLanguage();
 
-  const getCategoryName = (category: typeof SKILL_CATEGORIES[0]) => {
-    switch (language) {
-      case "es":
-        return category.nameEs;
-      case "pt":
-        return category.namePt;
-      default:
-        return category.nameEn;
-    }
-  };
-
   return (
     <section id="skills" className="py-10 sm:py-16">
       <div className="px-2 sm:px-4">
-        {/* Header */}
         <div className="mb-8 sm:mb-12">
           <h2 className="text-foreground dark:text-white text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
             {t("skillsTitle")}
@@ -31,7 +20,6 @@ export function SkillsSection() {
           </p>
         </div>
 
-        {/* Skills Grid by Category */}
         <div className="space-y-8 sm:space-y-10">
           {SKILL_CATEGORIES.map((category, categoryIndex) => (
             <motion.div
@@ -41,12 +29,10 @@ export function SkillsSection() {
               transition={{ duration: 0.4, delay: categoryIndex * 0.1 }}
               viewport={{ once: true, margin: "-50px" }}
             >
-              {/* Category Label */}
               <h3 className="text-xs sm:text-sm font-semibold text-primary uppercase tracking-wider mb-4">
-                {getCategoryName(category)}
+                {getLocalized(language, category.nameEn, category.nameEs, category.namePt)}
               </h3>
 
-              {/* Skills */}
               <div className="flex flex-wrap gap-2 sm:gap-3">
                 {category.skills.map((skill, skillIndex) => {
                   const Icon = skill.icon;

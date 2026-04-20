@@ -1,14 +1,12 @@
 "use client";
 
 import { useLanguage } from "@/contexts/language-context";
+import { useScrollToSection } from "@/hooks/use-scroll-to-section";
 import { Home, Code2, Briefcase, FolderGit2, Mail } from "lucide-react";
 
 export function BottomNav() {
   const { t } = useLanguage();
-
-  const scrollToSection = (sectionId: string) => () => {
-    document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
-  };
+  const scrollTo = useScrollToSection();
 
   const navItems = [
     { id: "start", icon: Home, label: t("start") },
@@ -26,7 +24,7 @@ export function BottomNav() {
           return (
             <button
               key={item.id}
-              onClick={scrollToSection(item.id)}
+              onClick={() => scrollTo(item.id)}
               className="flex flex-col items-center justify-center gap-1 flex-1 py-2 text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors active:scale-95"
             >
               <Icon className="size-5" />
